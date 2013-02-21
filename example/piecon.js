@@ -16,8 +16,10 @@
     var options = {};
     var defaults = {
         color: '#ff0084',
-        background: '#bbb',
-        shadow: '#fff',
+        background: '#F3F68D',
+        shadow: '#FFF',
+        percentage: '#3C3D40',
+        thickness: 1,
         fallback: false
     };
 
@@ -91,29 +93,43 @@
             if (context) {
                 context.clearRect(0, 0, 16, 16);
 
+
                 // Draw shadow
-                context.beginPath();
-                context.moveTo(canvas.width / 2, canvas.height / 2);
-                context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), 0, Math.PI * 2, false);
-                context.fillStyle = options.shadow;
-                context.fill();
+                if (percentage > 0) {
+                  context.beginPath();
+                  context.moveTo(canvas.width / 2, canvas.height / 2);
+                  context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), 0, Math.PI * 2, false);
+                  context.fillStyle = options.shadow;
+                  context.fill();
+                }
+
+                // Draw shadow
+                if (percentage > 0) {
+                  context.beginPath();
+                  context.moveTo(canvas.width / 2, canvas.height / 2);
+                  //context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), 0, Math.PI * 2, false);
+                  context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), (-0.5) * Math.PI, (-0.5 + 2 * percentage / 100) * Math.PI, false);
+                  context.fillStyle = options.percentage;
+                  context.fill();
+                }
 
                 // Draw background
                 context.beginPath();
                 context.moveTo(canvas.width / 2, canvas.height / 2);
-                context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - 2, 0, Math.PI * 2, false);
+                context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - options.thickness, 0, Math.PI * 2, false);
                 context.fillStyle = options.background;
                 context.fill();
 
                 // Draw pie
-                if (percentage > 0) {
-                    context.beginPath();
-                    context.moveTo(canvas.width / 2, canvas.height / 2);
-                    context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - 2, (-0.5) * Math.PI, (-0.5 + 2 * percentage / 100) * Math.PI, false);
-                    context.lineTo(canvas.width / 2, canvas.height / 2);
-                    context.fillStyle = options.color;
-                    context.fill();
-                }
+                /*
+                context.beginPath();
+                context.moveTo(canvas.width / 2, canvas.height / 2);
+                context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - 2, 0, Math.PI * 2, false);
+                //context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - 2, (-0.5) * Math.PI, (-0.5 + 2 * percentage / 100) * Math.PI, false);
+                context.lineTo(canvas.width / 2, canvas.height / 2);
+                context.fillStyle = options.color;
+                context.fill();
+                */
 
                 setFaviconTag(canvas.toDataURL());
             }
