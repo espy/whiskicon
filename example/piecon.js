@@ -19,6 +19,7 @@
         background: '#F3F68D',
         shadow: '#FFF',
         percentage: '#3C3D40',
+        icons: '#3C3D40',
         thickness: 1,
         fallback: false
     };
@@ -95,19 +96,16 @@
 
 
                 // Draw shadow
-                if (percentage > 0) {
-                  context.beginPath();
-                  context.moveTo(canvas.width / 2, canvas.height / 2);
-                  context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), 0, Math.PI * 2, false);
-                  context.fillStyle = options.shadow;
-                  context.fill();
-                }
+                context.beginPath();
+                context.moveTo(canvas.width / 2, canvas.height / 2);
+                context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), 0, Math.PI * 2, false);
+                context.fillStyle = options.shadow;
+                context.fill();
 
-                // Draw shadow
+                // Draw percentage ring
                 if (percentage > 0) {
                   context.beginPath();
                   context.moveTo(canvas.width / 2, canvas.height / 2);
-                  //context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), 0, Math.PI * 2, false);
                   context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), (-0.5) * Math.PI, (-0.5 + 2 * percentage / 100) * Math.PI, false);
                   context.fillStyle = options.percentage;
                   context.fill();
@@ -119,6 +117,27 @@
                 context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - options.thickness, 0, Math.PI * 2, false);
                 context.fillStyle = options.background;
                 context.fill();
+
+                // Draw play symbol
+                    var side = 7;
+                    var h = side * (Math.sqrt(3)/2);
+                    var xOffset = 0;
+                    var yOffset = 10;
+                    context.strokeStyle = options.icons;
+                    context.fillStyle = options.icons;
+                    context.save();
+                    context.translate(7, 7);
+                    context.rotate(-0.5);
+                    context.beginPath();
+                    context.moveTo(0, -h / 2);
+                    context.lineTo( -side / 2, h / 2);
+                    context.lineTo(side / 2, h / 2);
+                    context.lineTo(0, -h / 2);
+
+                    context.stroke();
+                    context.fill();
+                    context.restore();
+
 
                 // Draw pie
                 /*
