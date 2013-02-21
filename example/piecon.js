@@ -9,6 +9,7 @@
 (function(){
     var Piecon = {};
 
+    var state = null;
     var currentFavicon = null;
     var originalFavicon = null;
     var originalTitle = null;
@@ -119,36 +120,35 @@
                 context.fill();
 
                 // Draw play symbol
-                    var side = 7;
-                    var h = side * (Math.sqrt(3)/2);
-                    var xOffset = 0;
-                    var yOffset = 10;
-                    context.strokeStyle = options.icons;
-                    context.fillStyle = options.icons;
-                    context.save();
-                    context.translate(7, 7);
-                    context.rotate(-0.5);
-                    context.beginPath();
-                    context.moveTo(0, -h / 2);
-                    context.lineTo( -side / 2, h / 2);
-                    context.lineTo(side / 2, h / 2);
-                    context.lineTo(0, -h / 2);
+                if(state == "play"){
+                  var side = 7;
+                  var h = side * (Math.sqrt(3)/2);
+                  context.strokeStyle = options.icons;
+                  context.fillStyle = options.icons;
+                  context.save();
+                  context.translate(7, 7);
+                  context.rotate(-0.5);
+                  context.beginPath();
+                  context.moveTo(0, -h / 2);
+                  context.lineTo( -side / 2, h / 2);
+                  context.lineTo(side / 2, h / 2);
+                  context.lineTo(0, -h / 2);
 
-                    context.stroke();
-                    context.fill();
-                    context.restore();
+                  context.stroke();
+                  context.fill();
+                  context.restore();
+                }
 
-
-                // Draw pie
-                /*
-                context.beginPath();
-                context.moveTo(canvas.width / 2, canvas.height / 2);
-                context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - 2, 0, Math.PI * 2, false);
-                //context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2) - 2, (-0.5) * Math.PI, (-0.5 + 2 * percentage / 100) * Math.PI, false);
-                context.lineTo(canvas.width / 2, canvas.height / 2);
-                context.fillStyle = options.color;
-                context.fill();
-                */
+                // Draw pause symbol
+                if(state == "pause"){
+                  context.save();
+                  context.translate(5, 4);
+                  context.beginPath();
+                  context.fillStyle = options.icons;
+                  context.fillRect(0, 0, 2, 8);
+                  context.fillRect(4, 0, 2, 8);
+                  context.restore();
+                }
 
                 setFaviconTag(canvas.toDataURL());
             }
@@ -179,6 +179,11 @@
         }
 
         return this;
+    };
+
+    Piecon.setState = function(newState) {
+      state = newState;
+      return this;
     };
 
     Piecon.setProgress = function(percentage) {
