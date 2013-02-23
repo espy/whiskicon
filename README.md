@@ -1,4 +1,6 @@
-# Piecon
+# whiskicon
+
+## Note: the following is still piecon's doc and screenshot
 
 Pie charts in your favicon!
 
