@@ -1,22 +1,45 @@
 <!doctype html>
 <head>
-  <title>Piecon / Pie charts in your favicon!</title>
+  <title>Whiskicon - Track position and state in your favicon!</title>
   <link rel="icon" href="favicon.ico" />
-  <script src="piecon.js"></script>
+  <script src="whiskicon.js"></script>
   <script>
   (function(){
     var count = 0;
-    Piecon.setOptions({fallback: 'force'});
+    Whiskicon.setState('play');
     var i = setInterval(function(){
-      if (++count > 100) { Piecon.reset(); clearInterval(i); return false; }
-      Piecon.setProgress(count);
+      if(Whiskicon.getState('play')){
+        if (++count > 100) {
+          Whiskicon.setProgress(0);
+          Whiskicon.setState();
+          clearInterval(i);
+          return false;
+        }
+        Whiskicon.setProgress(count);
+      }
     }, 250);
   })();
   </script>
 </head>
 <body>
   <div id="container">
-    <h1>Piecon</h1>
-    <p>A <a href="https://github.com/lipka">@lipka</a> production</p>
+    <h1>Whiskicon</h1>
+    <h3>A small mod of @lipka's <a href="https://github.com/lipka/piecon">Piecon</a> by <a href="https://github.com/espy">espy</a></h3>
+    <ul>
+      <li><pre>Whiskicon.setProgress(Number)</pre> to set progress</li>
+      <li><pre>Whiskicon.setState(String)</pre> to set state, accepts "play", "pause" and null</li>
+      <li>
+        <pre>
+Whiskicon.setOptions({
+  background: '#F3F68D',    // Background color
+  ring: '#FFF',             // Ring background color
+  percentage: '#3C3D40',    // Ring foreground color
+  icons: '#3C3D40',         // Icon color
+  thickness: 1,             // Ring thickness
+  fallback: false           // Use title fallback
+});
+        </pre>
+      </li>
+    </ul>
   </div>
 </body>

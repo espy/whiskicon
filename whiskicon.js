@@ -1,13 +1,18 @@
 //
-// piecon.js
+// whikicon.js
 //
-// https://github.com/lipka/piecon
+// Whiskicon is a fork of piecon adapted for
+// the tumblr music player whiskie.net
 //
-// Copyright (c) 2012 Lukas Lipka <lukaslipka@gmail.com>. All rights reserved.
+// Piecon originally by @lipka:
+//   https://github.com/lipka/piecon
+//   Copyright (c) 2012 Lukas Lipka <lukaslipka@gmail.com>. All rights reserved.
 //
+// Whiskicon by @espylaub
+//   https://github.com/espy/
 
 (function(){
-    var Piecon = {};
+    var Whiskicon = {};
 
     var state = null;
     var currentFavicon = null;
@@ -16,9 +21,8 @@
     var canvas = null;
     var options = {};
     var defaults = {
-        color: '#ff0084',
         background: '#F3F68D',
-        shadow: '#FFF',
+        ring: '#FFF',
         percentage: '#3C3D40',
         icons: '#3C3D40',
         thickness: 1,
@@ -96,11 +100,11 @@
                 context.clearRect(0, 0, 16, 16);
 
 
-                // Draw shadow
+                // Draw ring
                 context.beginPath();
                 context.moveTo(canvas.width / 2, canvas.height / 2);
                 context.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width / 2, canvas.height / 2), 0, Math.PI * 2, false);
-                context.fillStyle = options.shadow;
+                context.fillStyle = options.ring;
                 context.fill();
 
                 // Draw percentage ring
@@ -171,7 +175,7 @@
         }
     };
 
-    Piecon.setOptions = function(custom) {
+    Whiskicon.setOptions = function(custom) {
         options = {};
 
         for (var key in defaults){
@@ -181,12 +185,16 @@
         return this;
     };
 
-    Piecon.setState = function(newState) {
+    Whiskicon.setState = function(newState) {
       state = newState;
       return this;
     };
 
-    Piecon.setProgress = function(percentage) {
+    Whiskicon.getState = function() {
+      return state;
+    };
+
+    Whiskicon.setProgress = function(percentage) {
         if (!originalTitle) {
             originalTitle = document.title;
         }
@@ -210,7 +218,7 @@
         return false;
     };
 
-    Piecon.reset = function() {
+    Whiskicon.reset = function() {
         if (originalTitle) {
             document.title = originalTitle;
         }
@@ -221,6 +229,6 @@
         }
     };
 
-    Piecon.setOptions(defaults);
-    window.Piecon = Piecon;
+    Whiskicon.setOptions(defaults);
+    window.Whiskicon = Whiskicon;
 })();
